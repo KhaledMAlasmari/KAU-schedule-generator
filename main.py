@@ -6,6 +6,10 @@ from parse_info import parse_info
 from itertools import product
 
 def main():
+    sections_401 = [
+        'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=38833'
+    ]
+
     sections_204 = [
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40202',
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40203',
@@ -14,7 +18,6 @@ def main():
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40200',
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40201'
     ]
-
     sections_211 = [
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40208',
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40207',
@@ -27,10 +30,11 @@ def main():
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40210',
         'https://odusplus-ss.kau.edu.sa/PROD/xwckschd.p_disp_detail_sched?term_in=202201&crn_in=40209'
     ]
-    course1 = parse_info(sections_204)
+    course1 = parse_info(sections_401)
     course2 = parse_info(sections_211)
     course3 = parse_info(sections_212)
-    schedules = get_all_possible_schedules(course1, course2, course3)
+    course4 = parse_info(sections_204)
+    schedules = get_all_possible_schedules(course1, course2, course3, course4)
     #print_schedules(schedules)
 
 def get_all_possible_schedules(*argv: Course) -> list[Schedule]:
@@ -53,9 +57,9 @@ def get_all_possible_schedules(*argv: Course) -> list[Schedule]:
 
 def print_schedules(schedules: list[Schedule]):
     length = len(schedules)
-    print("########################################")
     for i in range(length):
-        print(schedules[0])
+        print("########################################")
+        print(schedules[i])
 
 if __name__ == "__main__":
     main()

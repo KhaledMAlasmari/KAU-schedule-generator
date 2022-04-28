@@ -5,7 +5,7 @@ from .Lecture import *
 
 class Section:
 
-    def __init__(self, course_name: str, section_name: str, section_id: str, normal_professor: str, normal_lecture_time: date, normal_length: int, normal_lecture_days: str, lab_time: date | None, lab_length: int | None, lab_lecture_day: str | None, lab_professor: str | None):
+    def __init__(self, course_name: str, section_name: str, section_id: str, normal_professor: str, normal_lecture_time: date, normal_length: int, normal_lecture_days: str, lab_time: date | None=None, lab_length: int | None=None, lab_lecture_day: str | None= None, lab_professor: str | None= None):
         self.course_name = course_name
         self.__section_name = section_name
         self.__section_id = section_id
@@ -18,9 +18,9 @@ class Section:
         self.__lab_lecture_day = lab_lecture_day
         self.__lab_professor = lab_professor
         self.lectures = []
-        self.add_lectures_to_list(self.get_normal_lecture_start_time(), self.get_lab_lecture_end_time(), self.get_normal_lecture_days())
-        self.add_lectures_to_list(self.get_lab_lecture_start_time(), self.get_lab_lecture_end_time(), self.get_lab_lecture_day())
-
+        self.add_lectures_to_list(self.get_normal_lecture_start_time(), self.get_normal_lecture_end_time(), self.get_normal_lecture_days())
+        if self.__lab_lecture_time:
+            self.add_lectures_to_list(self.get_lab_lecture_start_time(), self.get_lab_lecture_end_time(), self.get_lab_lecture_day())
     def get_normal_lecture_start_time(self):
         return self.__normal_lecture_time
 
