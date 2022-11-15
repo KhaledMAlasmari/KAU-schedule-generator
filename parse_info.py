@@ -4,10 +4,12 @@ from bs4 import BeautifulSoup
 import re
 from Objects.Section import Section
 from Objects.Course import Course
+from typing import List
 
-def parse_info(sections_links : list[str]) -> Course:
+
+def parse_info(sections_links : List[str]) -> Course:
     length = len(sections_links)
-    sections: list[Section] = []
+    sections: List[Section] = []
     for i in range(length):
         response = requests.get(sections_links[i])
         soup = BeautifulSoup(response.text, 'html.parser')

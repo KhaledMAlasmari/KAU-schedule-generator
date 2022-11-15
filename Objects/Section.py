@@ -1,11 +1,10 @@
 from datetime import date, timedelta
-
 from .Lecture import *
 
 
 class Section:
 
-    def __init__(self, course_name: str, section_name: str, section_id: str, normal_professor: str, normal_lecture_time: date, normal_length: int, normal_lecture_days: str, lab_time: date | None=None, lab_length: int | None=None, lab_lecture_day: str | None= None, lab_professor: str | None= None):
+    def __init__(self, course_name: str, section_name: str, section_id: str, normal_professor: str, normal_lecture_time: date, normal_length: int, normal_lecture_days: str, lab_time: date or None=None, lab_length: int or None=None, lab_lecture_day: str or None= None, lab_professor: str or None= None):
         self.course_name = course_name
         self.__section_name = section_name
         self.__section_id = section_id

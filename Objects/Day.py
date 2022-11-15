@@ -1,13 +1,10 @@
-from datetime import date, datetime, time
+from datetime import date
 from Objects.Lecture import Lecture
-
-from Objects.Section import Section
-
-
+from typing import List
 class Day:
 
     def __init__(self) -> None:
-        self.__lectures: list[Lecture] = []
+        self.__lectures: List[Lecture] = []
 
     def get_lectures(self):
         return self.__lectures

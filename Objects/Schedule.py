@@ -1,5 +1,7 @@
 from .Lecture import Lecture
 from .Day import *
+from typing import List
+from .Section import Section
 class Schedule:
     def __init__(self) -> None:
         self.sunday = Sunday()
@@ -7,7 +9,7 @@ class Schedule:
         self.tuesday = Tuesday()
         self.wednesday = Wednesday()
         self.thursday = Thursday()
-        self.sections: list[Section] = []
+        self.sections: List[Section] = []
 
     def add_section(self, section: Section) -> bool:
         is_conflict = False

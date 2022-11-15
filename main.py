@@ -4,6 +4,7 @@ from Objects.Schedule import Schedule
 from Objects.Section import Section
 from parse_info import parse_info
 from itertools import product
+from typing import List
 
 def main():
     sections_401 = [
@@ -37,8 +38,8 @@ def main():
     schedules = get_all_possible_schedules(course1, course2, course3, course4)
     #print_schedules(schedules)
 
-def get_all_possible_schedules(*argv: Course) -> list[Schedule]:
-    schedules: list[Schedule] = []
+def get_all_possible_schedules(*argv: Course) -> List[Schedule]:
+    schedules: List[Schedule] = []
     sections = []
     for course in (argv):
         sections.append(course.get_sections())
@@ -55,7 +56,7 @@ def get_all_possible_schedules(*argv: Course) -> list[Schedule]:
         
 
 
-def print_schedules(schedules: list[Schedule]):
+def print_schedules(schedules: List[Schedule]):
     length = len(schedules)
     for i in range(length):
         print("########################################")
