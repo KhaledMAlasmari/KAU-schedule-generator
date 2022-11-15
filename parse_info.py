@@ -12,7 +12,7 @@ def parse_info(sections_links : List[str]) -> Course:
     sections: List[Section] = []
     for i in range(length):
         response = requests.get(sections_links[i])
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text.encode("utf-8"), 'html.parser', from_encoding="UTF-8")
         normal_lecture_time, normal_lecture_days, normal_lecture_professor, course_name, section_name, section_id, normal_length = parse_normal_lecture_info(soup)
         section: Section
         try:
