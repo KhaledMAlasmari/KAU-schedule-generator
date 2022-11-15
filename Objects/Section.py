@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+import time
 from .Lecture import *
 
 
@@ -54,4 +55,7 @@ class Section:
                 Lecture(self.__section_name, start, end, day, self.__section_id))
 
     def __str__(self) -> str:
-        return f'course name {self.course_name} professor:{self.__normal_professor} section name {self.__section_name} section id {self.__section_id} normal days {self.__normal_lecture_days}-{self.__normal_lecture_time} lab professor:{self.__lab_professor} lab days {self.__lab_lecture_day} - {self.__lab_lecture_time}'
+        if not self.__lab_lecture_time:
+            return f'course name {self.course_name} professor:{self.__normal_professor} section name {self.__section_name} section id {self.__section_id} normal days {self.__normal_lecture_days}-{self.__normal_lecture_time.strftime("%H:%M:%S")}'
+        else:
+            return f'course name {self.course_name} professor:{self.__normal_professor} section name {self.__section_name} section id {self.__section_id} normal days {self.__normal_lecture_days}-{self.__normal_lecture_time.strftime("%H:%M:%S")} lab professor:{self.__lab_professor} lab days {self.__lab_lecture_day} - {self.__lab_lecture_time.strftime("%H:%M:%S")}'

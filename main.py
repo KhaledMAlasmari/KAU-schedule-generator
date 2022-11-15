@@ -36,7 +36,7 @@ def main():
     course3 = parse_info(sections_212)
     course4 = parse_info(sections_204)
     schedules = get_all_possible_schedules(course1, course2, course3, course4)
-    #print_schedules(schedules)
+    print_schedules(schedules)
 
 def get_all_possible_schedules(*argv: Course) -> List[Schedule]:
     schedules: List[Schedule] = []
