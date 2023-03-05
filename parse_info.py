@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 import re
 from Objects.Section import Section
 from Objects.Course import Course
+from Objects.Exceptions import NoExtraLectureException, NoLabLectureException
+
 from typing import List
 
 
@@ -17,9 +19,13 @@ def parse_info(sections_links : List[str]) -> Course:
         section: Section
         try:
             lab_lecture_time, lab_lecture_days, lab_lecture_professor, lab_length = parse_lab_lecture_info(soup)
-            section = Section(course_name, section_name, section_id, normal_lecture_professor, normal_lecture_time, normal_length, normal_lecture_days, lab_lecture_time, lab_length, lab_lecture_days, lab_lecture_professor)
-        except (NameError, AttributeError) as e:
+            extra_lecture_time, extra_lecture_days, extra_lecture_professor, extra_lecture_length = parse_extra_lecture_info(soup)
+            section = Section(course_name, section_name, section_id, normal_lecture_professor, normal_lecture_time, normal_length, normal_lecture_days, lab_lecture_time, lab_length, lab_lecture_days, lab_lecture_professor, extra_lecture_professor, extra_lecture_length, extra_lecture_time, extra_lecture_days)
+        except NoLabLectureException:
             section = Section(course_name, section_name, section_id, normal_lecture_professor, normal_lecture_time, normal_length, normal_lecture_days)
+        except NoExtraLectureException:
+            section = Section(course_name, section_name, section_id, normal_lecture_professor, normal_lecture_time, normal_length, normal_lecture_days, lab_lecture_time, lab_length, lab_lecture_days, lab_lecture_professor)
+        
         sections.append(section)
     return Course(sections, course_name)
 
@@ -71,7 +77,8 @@ def parse_lab_lecture_info(soup: BeautifulSoup):
             lab_length = calculate_lecture_length(lab_lecture_info)
             return lab_lecture_time, lab_lecture_days, lab_lecture_professor, lab_length
         except (NameError, AttributeError) as e:
-            raise e
+            raise NoLabLectureException
+
 
 
 def parse_normal_lecture_info(soup: BeautifulSoup):
@@ -86,3 +93,16 @@ def parse_normal_lecture_info(soup: BeautifulSoup):
         section_id = parse_section_id(course_info.text)
         normal_length = calculate_lecture_length(normal_lecture_info)
         return normal_lecture_time, normal_lecture_days, normal_lecture_professor, course_name, section_name, section_id, normal_length
+    
+    
+def parse_extra_lecture_info(soup: BeautifulSoup):
+        try:
+            extra_lecture_info = soup.select_one('body > table:nth-child(3) > tr:nth-child(5)')
+            extra_time = extra_lecture_info.findAll('td')[1].text
+            extra_lecture_time = parse_time(extra_time)
+            extra_lecture_days  = parse_days(extra_lecture_info)
+            extra_lecture_professor = parse_professor(extra_lecture_info)
+            extra_length = calculate_lecture_length(extra_lecture_info)
+            return extra_lecture_time, extra_lecture_days, extra_lecture_professor, extra_length
+        except (NameError, AttributeError) as e:
+            raise NoExtraLectureException
