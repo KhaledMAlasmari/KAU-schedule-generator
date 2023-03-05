@@ -61,6 +61,6 @@ def print_schedules(schedules: List[Schedule]):
     for i in range(length):
         print("########################################")
         print(schedules[i])
-
+        print(f"days with lectures are: {schedules[i].get_days_with_lectures()}")
 if __name__ == "__main__":
     main()

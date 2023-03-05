@@ -51,7 +51,19 @@ class Schedule:
         elif day == 'R':
             return self.thursday.add_lecture(lecture)
 
-
+    def get_days_with_lectures(self):
+        days = ""
+        if(not self.sunday.is_empty()):
+            days = days + "U"
+        if(not self.monday.is_empty()):
+            days = days + "M"
+        if(not self.tuesday.is_empty()):
+            days = days + "T"
+        if(not self.wednesday.is_empty()):
+            days = days + "W"
+        if(not self.thursday.is_empty()):
+            days = days + "R"
+        return days
     def __str__(self):
         return "".join([str(x) + "\n" for x in self.sections])
 

@@ -6,6 +6,8 @@ class Day:
     def __init__(self) -> None:
         self.__lectures: List[Lecture] = []
 
+    def is_empty(self) -> bool :
+        return len(self.__lectures) == 0
     def get_lectures(self):
         return self.__lectures
 
